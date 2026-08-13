@@ -76,6 +76,13 @@ export default function Auth() {
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
 
+  const handleDemoLogin = () => {
+  setIsLogin(true);
+  setEmail('demo@devpath.ai');
+  setPassword('Demo@123');
+  setError(null);
+};
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -126,6 +133,8 @@ export default function Auth() {
 
         {error && <div className="auth-err">{error}</div>}
 
+        
+
         <form onSubmit={handleSubmit}>
           {!isLogin && (
             <div className="auth-field">
@@ -166,6 +175,26 @@ export default function Auth() {
             {loading ? 'Processing...' : (isLogin ? 'Log In' : 'Create Account')}
           </button>
         </form>
+
+        {isLogin && (
+  <div className="demo-login">
+    <div className="demo-divider">
+      <span>OR</span>
+    </div>
+
+    <button
+      type="button"
+      className="demo-btn"
+      onClick={handleDemoLogin}
+    >
+      🚀 Try Demo Account
+    </button>
+
+    <p className="demo-text">
+      Demo: demo@devpath.ai / Demo@123
+    </p>
+  </div>
+)}
 
         <div className="auth-switch">
           {isLogin ? "Don't have an account?" : "Already have an account?"}
