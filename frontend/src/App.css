@@ -508,7 +508,7 @@ nav {
   border: 1px solid #6c63ff;
   border-radius: 8px;
   background: transparent;
-  color: #fff;
+  color: #7da3d4;
   cursor: pointer;
   font-size: 15px;
   font-weight: 600;
@@ -516,7 +516,7 @@ nav {
 }
 
 .demo-btn:hover {
-  background: #6c63ff;
+  background: #6c63fg;
 }
 
 .demo-text {
