@@ -36,11 +36,13 @@ app.use('/api/ai/generate', aiLimiter);
 
 // ── CORS ─────────────────────────────────────────────
 const allowedOrigins = [
-  process.env.FRONTEND_URL || 'http://localhost:3000',
-  'http://localhost:5173', // Vite dev server
-  'http://127.0.0.1:5500', // Live Server (VS Code)
+  process.env.FRONTEND_URL,
+  'http://localhost:3000',
+  'http://localhost:5173',
+  'http://127.0.0.1:5500',
   'http://localhost:5500',
-];
+  'https://YOUR-VERCEL-URL.vercel.app'
+].filter(Boolean);
 
 app.use(cors({
   origin: function (origin, callback) {
