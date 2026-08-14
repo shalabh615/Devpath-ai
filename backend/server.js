@@ -8,7 +8,9 @@ const rateLimit = require('express-rate-limit');
 const connectDB = require('./config/db');
 
 // Connect to MongoDB
-connectDB();
+connectDB().catch(err => {
+  console.error('Database connection failed:', err.message);
+});
 
 const app = express();
 
