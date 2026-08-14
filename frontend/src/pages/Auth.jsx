@@ -98,7 +98,18 @@ export default function Auth() {
         body: JSON.stringify(payload)
       });
       
-      const data = await res.json();
+      const text = await res.text();
+
+console.log("STATUS:", res.status);
+console.log("SERVER RESPONSE:", text);
+
+let data;
+
+try {
+  data = JSON.parse(text);
+} catch (err) {
+  throw new Error(`Server returned non-JSON response: ${text}`);
+}
       
       if (!res.ok || !data.success) {
         throw new Error(data.message || 'Authentication failed');
