@@ -36,26 +36,33 @@ app.use('/api/ai/generate', aiLimiter);
 
 // ── CORS ─────────────────────────────────────────────
 const allowedOrigins = [
-  process.env.FRONTEND_URL,
   'http://localhost:3000',
   'http://localhost:5173',
   'http://127.0.0.1:5500',
   'http://localhost:5500',
-  'https://YOUR-VERCEL-URL.vercel.app'
+  process.env.FRONTEND_URL
 ].filter(Boolean);
 
 app.use(cors({
   origin: function (origin, callback) {
-    // Allow requests with no origin (mobile apps, curl, Postman)
-    if (!origin) return callback(null, true);
-    if (allowedOrigins.includes(origin)) return callback(null, true);
-    callback(new Error('CORS: Origin not allowed'));
+    if (!origin) {
+      return callback(null, true);
+    }
+
+    if (
+      allowedOrigins.includes(origin) ||
+      origin.endsWith('.vercel.app')
+    ) {
+      return callback(null, true);
+    }
+
+    console.log('Blocked origin:', origin);
+    return callback(new Error('CORS: Origin not allowed'));
   },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
-
 // ── BODY PARSER ──────────────────────────────────────
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
